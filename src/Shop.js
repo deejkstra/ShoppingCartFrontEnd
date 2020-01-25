@@ -25,12 +25,23 @@ const Shop = () => {
 			.catch(error => dispatch({type:'SET_ERROR', payload: error}))
 	}
 
-	function priceItem(data) {
+	function priceDiscount(discountData) {
+		if (discountData.length == 0) {
+			return
+		}
+
+		return (<div className='discount'>
+			{discountData[0].number} for ${discountData[0].price}
+		</div>)
+	}
+
+	function priceItem(priceData) {
 		return (
-		<button key={data.id} className='addToCart'
-		onClick={() => addToCart(data.id)}>
-		{data.description} / ${data.unit_price}</button>
-		)
+		<button key={priceData.id} className='addToCart'
+		onClick={() => addToCart(priceData.id)}>
+		{priceData.description} / ${priceData.unit_price}
+		{priceDiscount(priceData.volume_discounts)}
+		</button>)
 	}
 
 	function loadInventory() {
