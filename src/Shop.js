@@ -27,9 +27,9 @@ const Shop = () => {
 
 	function priceItem(data) {
 		return (
-		<button class="addToCart"
+		<button key={data.id} className='addToCart'
 		onClick={() => addToCart(data.id)}>
-		{data.description}/{data.unit_price}</button>
+		{data.description} / ${data.unit_price}</button>
 		)
 	}
 
@@ -45,7 +45,8 @@ const Shop = () => {
 
 	return (<React.Fragment>
 		<SubHeader/>
-		<div class="content shop">
+		<div className='content shop'>
+		<h3>Inventory</h3>
 		{state.inventory.map(data => priceItem(data))}
 		</div>
 	</React.Fragment>)

@@ -1,10 +1,12 @@
-import React, { useEffect, useContext } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
-import Store, { Context } from './Store'
+import Store from './Store'
 import Main from './Main'
 import Shop from './Shop'
 import Cart from './Cart'
+import './custom.css'
+//import './App.css'
 
 const App = () => {
 
@@ -12,16 +14,16 @@ const App = () => {
 	return (
 		<Store>
 		<Router>
-<div class="header">
+<div className='header'>
 <ul>
           <li>
-            <Link to="/">Main</Link>
+            <Link to='/'>Main</Link>
           </li>
           <li>
-            <Link to="/shop">Shop</Link>
+            <Link to='/shop'>Shop</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to='/cart'>Cart</Link>
           </li>
         </ul>
 </div>

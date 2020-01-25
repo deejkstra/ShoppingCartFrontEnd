@@ -1,20 +1,35 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Context } from './Store'
 
 const SubHeader = () => {
 
-	const [state, dispatch] = useContext(Context)
+	const [state,] = useContext(Context)
 
-	return (<div class="subheader">
-		<div class="selectedCartId"><h3>Selected Cart ID:</h3>
-		{state.selectedCartId}
-		</div>
-		<div class="totalPrice">
-		<h3>Total Price</h3>
-		{state.totalPrice}
-		</div>
+	function getSelectedCartId() {
+		return state.selectedCartId ? state.selectedCartId : 'None'
+	}
+
+	function getTotalPrice() {
+		return state.totalPrice ? state.totalPrice : 'None'
+	}
+
+	return (<React.Fragment>
+<table className='subheader'>
+    <thead>
+        <tr>
+            <th>Selected Cart ID</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{getSelectedCartId()}</td>
+            <td>{getTotalPrice()}</td>
+        </tr>
+    </tbody>
+</table>
 		<hr/>
-	</div>)
+	</React.Fragment>)
 }
 
 export default SubHeader;

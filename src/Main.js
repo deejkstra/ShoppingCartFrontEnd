@@ -12,6 +12,12 @@ const Main = () => {
 
 	const [state, dispatch] = useContext(Context)
 
+	function getTotalPrice(cartId){
+		axios.get('http://localhost:8080/getTotalPrice?cartId=' + cartId,axiosConfig)
+			.then(response=>dispatch({type:'SET_TOTAL_PRICE',payload:response.data}))
+			.catch(error=>dispatch({type:'SET_ERROR',payload:error}))
+	}
+
 	function loadShoppingCarts() {
 		axios.get('http://localhost:8080/getShoppingCarts', axiosConfig)
 			.then(response => dispatch({type: 'SET_CARTS', payload: response.data}))
@@ -28,7 +34,9 @@ const Main = () => {
 	}
 
 	function setSelectedCartId(selectedId) {
-		dispatch({type: 'SET_SELECTED_CART_ID', payload: state.carts[selectedId]})
+		let cartId = state.carts[selectedId]
+		dispatch({type: 'SET_SELECTED_CART_ID', payload: cartId})
+		getTotalPrice(cartId)
 	}
 
 	useEffect(() => {
@@ -37,7 +45,7 @@ const Main = () => {
 
 	return (<React.Fragment>
 		<SubHeader/>
-		<div class='content main'>
+		<div className='content main'>
 			<button onClick={createShoppingCart}>Create Shopping Cart</button>
 			<h3>List of Shopping Carts</h3>
 			<List 

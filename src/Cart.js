@@ -17,8 +17,25 @@ const Cart = () => {
 			.catch(error => dispatch({type: 'SET_ERROR', payload: error.data}))
 	}
 
-	function cartItemList(id, value) {
-		return (<li>{id}/{value}</li>)
+	function getCartRow(itemId, count) {
+        	return(<tr>
+			<td>{itemId}</td>
+			<td>{count}</td>
+		</tr>)
+	}
+
+	function getCartTable() {
+		return (<table>
+    			<thead>
+        		<tr>
+            			<th>Item ID</th>
+            			<th>Amount in Cart</th>
+        		</tr>
+    			</thead>
+    			<tbody>
+			{Object.keys(state.items).map(key => getCartRow(key, state.items[key]))}
+    			</tbody>
+			</table>) 
 	}
 
 	useEffect(() => {
@@ -27,9 +44,10 @@ const Cart = () => {
 
 	return (<React.Fragment>
 		<SubHeader/>
-		<div><ul>
-		{Object.keys(state.items).map(key => cartItemList(key, state.items[key]))}
-		</ul></div>
+		<div className='content cart'>
+		<h3>Items in Cart</h3>
+		{getCartTable()}
+		</div>
 	</React.Fragment>)
 }
 
