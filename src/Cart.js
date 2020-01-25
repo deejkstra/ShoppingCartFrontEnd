@@ -38,6 +38,20 @@ const Cart = () => {
 			</table>) 
 	}
 
+	function getTotalPrice(){
+		axios.get('http://localhost:8080/getTotalPrice?cartId='+state.selectedCartId,axiosConfig)
+			.then(response=>dispatch({type:'SET_TOTAL_PRICE',payload:response.data}))
+			.catch(error=>dispatch({type:'SET_ERROR',payload:error}))
+	}
+
+	function clearCart() {
+		axios.get('http://localhost:8080/clearCart?cartId=' + state.selectedCartId)
+			.then(response => {
+				loadCartItems()
+				getTotalPrice()
+			})
+	}
+
 	useEffect(() => {
 		loadCartItems()
 	}, [])
@@ -45,6 +59,7 @@ const Cart = () => {
 	return (<React.Fragment>
 		<SubHeader/>
 		<div className='content cart'>
+		<button onClick={clearCart}>Clear Cart</button>
 		<h3>Items in Cart</h3>
 		{getCartTable()}
 		</div>
